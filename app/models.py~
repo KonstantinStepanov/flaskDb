@@ -1,0 +1,26 @@
+from app import db
+
+
+class Author(db.Model):
+    __tablename__ = 'author'
+    id = db.Column(db.Integer, primary_key = True)
+    fullname = db.Column(db.String(64), unique = True)
+    books = db.relationship('Book', secondary= 'author_book')
+    
+    def __repr__(self):
+        return '<User %r>' % (self.fullname)
+
+class Book(db.Model):
+	__tablename__ = 'book'
+	id = db.Column(db.Integer, primary_key = True)
+	title = db.Column(db.String(100), unique = True)
+	authors = db.relationship('Author', secondary= 'author_book')
+
+	def __repr__(self):
+		return '<Title of book %r>' % (self.title)
+
+class AuthorBook(db.Model):
+	__tablename__ = 'author_book'
+	author_id = db.Column(db.Integer, ForeignKey('author.id'), primary_key = True)
+	book_id = db.Column(db.Integer, ForeignKey('book.id'), primary_key = True)
+

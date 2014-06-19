@@ -1,0 +1,4 @@
+<form method="POST">
+	{{form.name.label }}{{form.name(id='my_text_field')}}
+	{{form.submit()}}
+</form>
